@@ -10,13 +10,17 @@ const initialAnnotations: Annotation[] = [
   { x: 689, y: 711, label: "#47", type: 'Damage' },
   { x: 795, y: 283, label: "#48", type: 'Incomplete' },
   { x: 563, y: 100, label: "#50", type: 'Observation' },
-  { x: 908, y: 114, label: "#55", type: 'Resolved' },
+  { x: 563, y: 100, label: "#50", type: 'Observation' },
+  { x: 908, y: 114, label: "#30", type: 'Resolved' },
 ];
 
 export default function Home() {
+  const lastAnnotations = Array.from(new Set(initialAnnotations.map((ann) => Number(ann.label.split('#')[1])))).sort()
+  const nextAnnotationLable = lastAnnotations[lastAnnotations.length -1] + 1
+
   const typeOrder = Object.keys(constructionOptions) as AnnotationType[];
   const [annotations, setAnnotations] = useState<Annotation[]>(initialAnnotations);
-  const [nextAnnotationLabel, setNextAnnotationLabel] = useState(56);
+  const [nextAnnotationLabel, setNextAnnotationLabel] = useState(Number(nextAnnotationLable));
   const [filters, setFilters] = useState<Record<AnnotationType, boolean>>({
     Damage: true,
     Incomplete: true,
